@@ -3,6 +3,12 @@ import React from "react";
 import "./Person.css";
 
 const person = (props) => {
+  const rnd = Math.random();
+
+  if (rnd < 0.1) {
+    throw new Error("Something went wrong");
+  }
+
   return (
     <div className="Person">
       <p onClick={props.click}>
