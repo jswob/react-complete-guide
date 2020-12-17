@@ -1,7 +1,23 @@
 import React, { useEffect, useRef, useContext } from "react";
 
+import styled from "styled-components";
+
 import "./Cockpit.css";
 import AuthContext from "../../context/auth-context";
+
+const StyledButton = styled.button`
+  background-color: ${(props) => (props.alt ? "red" : "green")};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
+    color: black;
+  }
+`;
 
 const cockpit = (props) => {
   const toggleBtnRef = useRef();
@@ -28,26 +44,26 @@ const cockpit = (props) => {
     };
   });
 
-  const btnClass = {
-    backgroundColor: "green",
-    color: "white",
-    font: "inherit",
-    border: "1px solid blue",
-    padding: "8px",
-    cursor: "pointer",
-    ":hover": {
-      backgroundColor: "lightgreen",
-      color: "black",
-    },
-  };
+  // const btnClass = {
+  //   backgroundColor: "green",
+  //   color: "white",
+  //   font: "inherit",
+  //   border: "1px solid blue",
+  //   padding: "8px",
+  //   cursor: "pointer",
+  //   ":hover": {
+  //     backgroundColor: "lightgreen",
+  //     color: "black",
+  //   },
+  // };
 
-  if (props.showPersons) {
-    btnClass.backgroundColor = "red";
-    btnClass[":hover"] = {
-      backgroundColor: "salmon",
-      color: "black",
-    };
-  }
+  // if (props.showPersons) {
+  //   btnClass.backgroundColor = "red";
+  //   btnClass[":hover"] = {
+  //     backgroundColor: "salmon",
+  //     color: "black",
+  //   };
+  // }
 
   let assignedClasses = [];
 
@@ -63,13 +79,17 @@ const cockpit = (props) => {
     <div className="Cockpit">
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(" ")}>This is really working!</p>
-      <button ref={toggleBtnRef} style={btnClass} onClick={props.clicked}>
+      <StyledButton
+        alt={props.showPersons}
+        ref={toggleBtnRef}
+        onClick={props.clicked}
+      >
         Toggle Persons
-      </button>
+      </StyledButton>
 
-      <button style={btnClass} onClick={authContext.login}>
+      <StyledButton alt={false} onClick={authContext.login}>
         Log in
-      </button>
+      </StyledButton>
     </div>
   );
 };
