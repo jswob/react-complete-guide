@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import "./Cockpit.css";
 
 const cockpit = (props) => {
+  const toggleBtnRef = useRef();
+  toggleBtnRef;
+
+  useEffect(() => {
+    console.log(" [Cockpit.js] useEffect");
+
+    // setTimeout(() => {
+    //   alert("Saved data to cloud!");
+    // }, 1000);
+
+    toggleBtnRef.current.click();
+    return () => {
+      console.log(" [Cockpit.js] cleanup work in useEffect");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(" [Cockpit.js] 2nd useEffect");
+
+    return () => {
+      console.log(" [Cockpit.js] cleanup work in 2nd useEffect");
+    };
+  });
+
   const btnClass = {
     backgroundColor: "green",
     color: "white",
@@ -26,23 +50,23 @@ const cockpit = (props) => {
 
   let assignedClasses = [];
 
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     assignedClasses.push("red");
   }
 
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     assignedClasses.push("bold");
   }
 
   return (
     <div className="Cockpit">
-      <h1>Hi, I'm a React App</h1>
+      <h1>{props.title}</h1>
       <p className={assignedClasses.join(" ")}>This is really working!</p>
-      <button style={btnClass} onClick={props.clicked}>
+      <button ref={toggleBtnRef} style={btnClass} onClick={props.clicked}>
         Toggle Persons
       </button>
     </div>
   );
 };
 
-export default cockpit;
+export default React.memo(cockpit);
