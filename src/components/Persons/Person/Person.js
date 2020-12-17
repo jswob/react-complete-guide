@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./Person.css";
-import withClass from "../../../hoc/withClass";
+import Radium, { StyleRoot } from "radium";
 
 import AuthContext from "../../../context/auth-context";
 
@@ -22,8 +22,14 @@ class Person extends Component {
   render() {
     console.log("   [Person.js] render");
 
+    const style = {
+      "@media (min-width: 500px)": {
+        width: "450px",
+      },
+    };
+
     return (
-      <Fragment>
+      <div className="Person" style={style}>
         {this.context.authenticated ? (
           <p>Authenticated!</p>
         ) : (
@@ -43,7 +49,7 @@ class Person extends Component {
           onChange={this.props.changed}
           defaultValue={this.props.name}
         />
-      </Fragment>
+      </div>
     );
   }
 }
@@ -55,4 +61,4 @@ Person.propTypes = {
   changed: PropTypes.func,
 };
 
-export default withClass(Person, "Person");
+export default Radium(Person);

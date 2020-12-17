@@ -3,7 +3,7 @@ import React, { Component, Fragment } from "react";
 import classes from "./App.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
-// import Radium from "radium";
+import { StyleRoot } from "radium";
 import withClass from "../hoc/withClass";
 import AuthContext from "../context/auth-context";
 
@@ -99,7 +99,7 @@ class App extends Component {
       );
     }
     return (
-      <Fragment>
+      <StyleRoot>
         <button onClick={this.removeCockpitHandler}>Remove Cockpit</button>
         <AuthContext.Provider
           value={{
@@ -117,7 +117,7 @@ class App extends Component {
           ) : null}
           {persons}
         </AuthContext.Provider>
-      </Fragment>
+      </StyleRoot>
     );
   }
 }
