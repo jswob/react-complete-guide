@@ -3,8 +3,9 @@ import React, { Component, Fragment } from "react";
 import classes from "./App.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
-import Radium from "radium";
+// import Radium from "radium";
 import withClass from "../hoc/withClass";
+import AuthContext from "../context/auth-context";
 
 class App extends Component {
   constructor(props) {
@@ -94,23 +95,28 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
-          isAuthenticated={this.state.authenticated}
         />
       );
     }
     return (
       <Fragment>
         <button onClick={this.removeCockpitHandler}>Remove Cockpit</button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            title={this.props.appTitle}
-            personsLength={this.state.persons.length}
-            showPersons={this.state.showPersons}
-            clicked={this.togglePersonsHandler}
-            login={this.loginHandler}
-          />
-        ) : null}
-        {persons}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler,
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              personsLength={this.state.persons.length}
+              showPersons={this.state.showPersons}
+              clicked={this.togglePersonsHandler}
+            />
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
       </Fragment>
     );
   }
