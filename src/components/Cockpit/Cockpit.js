@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useContext } from "react";
 
-import styled from "styled-components";
+// import styled from "styled-components";
 
 import "./Cockpit.css";
 import AuthContext from "../../context/auth-context";
 
-const StyledButton = styled.button`
-  background-color: ${(props) => (props.alt ? "red" : "green")};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
+// const StyledButton = styled.button`
+//   background-color: ${(props) => (props.alt ? "red" : "green")};
+//   color: white;
+//   font: inherit;
+//   border: 1px solid blue;
+//   padding: 8px;
+//   cursor: pointer;
 
-  &:hover {
-    background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
-    color: black;
-  }
-`;
+//   &:hover {
+//     background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
+//     color: black;
+//   }
+// `;
 
 const cockpit = (props) => {
   const toggleBtnRef = useRef();
@@ -79,17 +79,18 @@ const cockpit = (props) => {
     <div className="Cockpit">
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(" ")}>This is really working!</p>
-      <StyledButton
+      <button
+        className="button"
         alt={props.showPersons}
         ref={toggleBtnRef}
         onClick={props.clicked}
       >
         Toggle Persons
-      </StyledButton>
+      </button>
 
-      <StyledButton alt={false} onClick={authContext.login}>
+      <button className="button" alt={false} onClick={authContext.login}>
         Log in
-      </StyledButton>
+      </button>
     </div>
   );
 };
