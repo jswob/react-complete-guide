@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext } from "react";
 
 // import styled from "styled-components";
 
-import "./Cockpit.css";
+import classes from "./Cockpit.css";
 import AuthContext from "../../context/auth-context";
 
 // const StyledButton = styled.button`
@@ -68,19 +68,23 @@ const cockpit = (props) => {
   let assignedClasses = [];
 
   if (props.personsLength <= 2) {
-    assignedClasses.push("red");
+    assignedClasses.push(classes.red);
   }
 
   if (props.personsLength <= 1) {
-    assignedClasses.push("bold");
+    assignedClasses.push(classes.bold);
   }
+
+  let btnClass = [classes.Button];
+
+  if (props.showPersons) btnClass.push(classes.Red);
 
   return (
     <div className="Cockpit">
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(" ")}>This is really working!</p>
       <button
-        className="button"
+        className={btnClass.join(" ")}
         alt={props.showPersons}
         ref={toggleBtnRef}
         onClick={props.clicked}
@@ -88,7 +92,11 @@ const cockpit = (props) => {
         Toggle Persons
       </button>
 
-      <button className="button" alt={false} onClick={authContext.login}>
+      <button
+        className={classes.Button}
+        alt={false}
+        onClick={authContext.login}
+      >
         Log in
       </button>
     </div>
